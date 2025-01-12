@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Add Task')
-{{ $errors }}
+{{ }}
 @section('content')
     <form method="POST" action="{{ route('task.store') }}">
         {{-- using @csrf for authentication perpose like find out the
