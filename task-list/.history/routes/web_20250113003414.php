@@ -57,19 +57,11 @@ Route::get('/', function () {
     return redirect()->route('task.index');
 });
 Route::get('/tasks', function () use ($tasks) {
-    return view('index', [
-        'tasks' => $tasks
-    ]);
+    return view('index', []);
 })->name('task.index');
-
 Route::get('/tasks/{id}', function ($id) {
     return 'one single task';
 })->name('task.show');
-// Route::get('/tasks/{id}', function ($id) use ($tasks) {
-//     $task = collect($tasks)->firstOrFail('id', $id);
-// })->name('task.show');
-
-
 // Route::get('/hello', function () {
 //     return 'Hello';
 // })->name('hello');

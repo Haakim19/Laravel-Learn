@@ -5,9 +5,7 @@
 </div>
     {{-- @if (count($tasks)) --}}
         @forelse ($tasks as $task)
-            <div>
-                <a href="{{ route('task.show',['id'=> $task->id])}}">{{ $task->title }}</a>
-            </div>
+            <div></div>
         @empty
             <div>There is no tasks</div>
         @endforelse
