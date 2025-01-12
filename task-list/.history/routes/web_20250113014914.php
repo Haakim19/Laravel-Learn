@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 Route::get('/tasks', function () {
     return view('index', [
-        'tasks' => \App\Models\Task::latest()->where('completed', true)->get()
+        \App\Models\Task::latest()->get()
     ]);
 })->name('task.index');
 
