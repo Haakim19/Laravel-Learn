@@ -1,15 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Add Task')
-
-@section('styles')
-    <style>
-        .error-message{
-            color: red;
-            font-size: 0, 8rem;
-        }
-    </style>
-@endsection
+{{ $errors }}
 @section('content')
     <form method="POST" action="{{ route('task.store') }}">
         {{-- using @csrf for authentication perpose like find out the
@@ -20,14 +12,14 @@
             <input type="text" name="title" id="title">
         </div>
         @error('title')
-            <p class="error-message">{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
         <div>
             <label for="description">Description</label>
             <textarea name="description" id="description" rows="5"></textarea>
         </div>
         @error('description')
-            <p class="error-message">{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
 
         <div>
@@ -35,7 +27,7 @@
             <textarea name="long_description" id="long_description" rows="5"></textarea>
         </div>
         @error('long_description')
-            <p class="error-message">{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
 
         <div>

@@ -20,14 +20,14 @@
             <input type="text" name="title" id="title">
         </div>
         @error('title')
-            <p class="error-message">{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
         <div>
             <label for="description">Description</label>
             <textarea name="description" id="description" rows="5"></textarea>
         </div>
         @error('description')
-            <p class="error-message">{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
 
         <div>
@@ -35,7 +35,7 @@
             <textarea name="long_description" id="long_description" rows="5"></textarea>
         </div>
         @error('long_description')
-            <p class="error-message">{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
 
         <div>

@@ -9,6 +9,8 @@
     <div>
         @if (session()->has('success'))
             <div>{{ session('success') }}</div>
+        @endsession
+
         @endif
         @yield('content')
     </div>
