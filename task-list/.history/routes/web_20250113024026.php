@@ -33,7 +33,6 @@ Route::post('/tasks', function (Request $request) {
     $task->description = $data['description'];
     $task->long_description = $data['long_description'];
     $task->save();
-
     return redirect()->route('task.show', ['id' => $task->id]);
 })->name('task.store');
 
