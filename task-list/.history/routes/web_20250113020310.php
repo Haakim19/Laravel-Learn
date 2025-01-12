@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,19 +10,13 @@ Route::get('/tasks', function () {
         'tasks' => \App\Models\Task::latest()->where('completed', true)->get()
     ]);
 })->name('task.index');
-
-Route::view('tasks/create', 'create')
-    ->name('tasks.create');
-
+Route::view('task/create', 'create');
 Route::get('/tasks/{id}', function ($id) {
     return view('show', [
         'task' => \App\Models\Task::findOrFail($id)
     ]);
 })->name('task.show');
 
-Route::post('/tasks', function (Request $request) {
-    dd($request->all());
-})->name('task.store');
 
 // Route::get('/hello', function () {
 //     return 'Hello';

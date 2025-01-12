@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,9 +20,6 @@ Route::get('/tasks/{id}', function ($id) {
     ]);
 })->name('task.show');
 
-Route::post('/tasks', function (Request $request) {
-    dd($request->all());
-})->name('task.store');
 
 // Route::get('/hello', function () {
 //     return 'Hello';
