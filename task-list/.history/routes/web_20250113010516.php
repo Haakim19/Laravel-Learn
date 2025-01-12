@@ -63,14 +63,7 @@ Route::get('/tasks', function () use ($tasks) {
 })->name('task.index');
 
 Route::get('/tasks/{id}', function ($id) use ($tasks) {
-    // Find the task by ID
-    $task = collect($tasks)->firstWhere('id', $id);
-
-    // Check if the task was found
-    if (!$task) {
-        abort(404); // Return a 404 error if the task is not found
-    }
-
+    $task = collect($tasks)->firstOrFail($id);
     return view('show', ['task' => $task]);
 })->name('task.show');
 
