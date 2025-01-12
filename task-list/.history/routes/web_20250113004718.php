@@ -62,8 +62,8 @@ Route::get('/tasks', function () use ($tasks) {
     ]);
 })->name('task.index');
 
-Route::get('/tasks/{id}', function ($id) {
-    return 'one single task';
+Route::get('/tasks/{id}', function ($id) use ($tasks) {
+    $task = collect($tasks)->firstOrFail('id', $id);
 })->name('task.show');
 // Route::get('/tasks/{id}', function ($id) use ($tasks) {
 //     $task = collect($tasks)->firstOrFail('id', $id);

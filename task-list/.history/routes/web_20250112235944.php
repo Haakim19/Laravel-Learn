@@ -52,24 +52,11 @@ $tasks = [
         '2023-03-04 12:00:00'
     ),
 ];
-
 Route::get('/', function () {
-    return redirect()->route('task.index');
-});
-Route::get('/tasks', function () use ($tasks) {
     return view('index', [
-        'tasks' => $tasks
+        'name' => 'Zoro'
     ]);
-})->name('task.index');
-
-Route::get('/tasks/{id}', function ($id) {
-    return 'one single task';
-})->name('task.show');
-// Route::get('/tasks/{id}', function ($id) use ($tasks) {
-//     $task = collect($tasks)->firstOrFail('id', $id);
-// })->name('task.show');
-
-
+});
 // Route::get('/hello', function () {
 //     return 'Hello';
 // })->name('hello');
