@@ -63,9 +63,8 @@ Route::get('/tasks', function () use ($tasks) {
 })->name('task.index');
 
 Route::get('/tasks/{id}', function ($id) {
-    return view('show', [
-        'task' => \App\Models\Task::findOrFail($id)
-    ]);
+    \App\Models\Task::find($id);
+    return view('show', ['task' => $task]);
 })->name('task.show');
 
 
