@@ -18,9 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api([
             EnsureFrontendRequestsAreStateful::class,
         ]);
-        $middleware->web([
-            EnsureFrontendRequestsAreStateful::class,
-        ]);
+        // $middleware->api([
+        //     \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        //     'throttle:api',
+        //     \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        // ]);
     })
 
     ->withExceptions(function (Exceptions $exceptions) {
