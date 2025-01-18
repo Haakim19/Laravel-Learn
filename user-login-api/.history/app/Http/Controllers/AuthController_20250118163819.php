@@ -31,7 +31,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users|email|max:255',
-            'password' => 'required|min:8|confirmed'
+            'password' => 'required|min:8'
         ]);
 
         //create a new user
@@ -40,10 +40,9 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-        $user->save();
         return response()->json([
             'message' => 'User created successfully',
             'user' => $user
-        ], 201);
+        ]);
     }
 }
