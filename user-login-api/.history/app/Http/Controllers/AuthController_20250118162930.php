@@ -21,29 +21,26 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
-        $token = $user->createToken('API Token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['access_token' => $token], 200);
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer'
+        ]);
     }
     public function register(Request $request)
     {
         //validate the incoming request
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users|email|max:255',
-            'password' => 'required|min:8|confirmed'
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8'
         ]);
 
         //create a new user
         $user = new User([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
+
         ]);
-        $user->save();
-        return response()->json([
-            'message' => 'User created successfully',
-            'user' => $user
-        ], 201);
     }
 }
