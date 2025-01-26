@@ -23,7 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web([
             EnsureFrontendRequestsAreStateful::class,
             EncryptCookies::class,
-            // StartSession::class,
+            StartSession::class,
         ]);
     })
 

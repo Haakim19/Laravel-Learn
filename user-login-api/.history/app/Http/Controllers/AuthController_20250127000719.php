@@ -59,13 +59,4 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out'], 200)
             ->cookie($cookie);
     }
-    public function checkSession(Request $request)
-    {
-        $cookie = $request->cookie('user_session');
-        if ($cookie) {
-            return response()->json(['message' => 'Session Active'], 200);
-        } else {
-            return response()->json(['message' => 'Session Inactive'], 401);
-        }
-    }
 }

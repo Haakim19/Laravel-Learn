@@ -22,10 +22,10 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
-        // $token = $user->createToken('API Token')->plainTextToken;
+        $token = $user->createToken('API Token')->plainTextToken;
 
-        $cookie = cookie('user_session', $user->email, 60);
-        return response()->json(['message' => 'Login Successful'], 200)
+        $cookie = cookie('user_session', $token, 60);
+        return response()->json(['message' => 'Login Successful', $cookie], 200)
             ->cookie($cookie);
     }
     public function register(Request $request)
@@ -58,14 +58,5 @@ class AuthController extends Controller
         $cookie = cookie('user_session', null, -1);
         return response()->json(['message' => 'Logged out'], 200)
             ->cookie($cookie);
-    }
-    public function checkSession(Request $request)
-    {
-        $cookie = $request->cookie('user_session');
-        if ($cookie) {
-            return response()->json(['message' => 'Session Active'], 200);
-        } else {
-            return response()->json(['message' => 'Session Inactive'], 401);
-        }
     }
 }
