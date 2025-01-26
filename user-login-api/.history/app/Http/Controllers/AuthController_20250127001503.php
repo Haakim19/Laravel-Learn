@@ -23,19 +23,15 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
         // $token = $user->createToken('API Token')->plainTextToken;
-
-        //Log the user in
         Auth::login($user);
-
         //Set session variable
-        $request->session()->put('user_id', $user->id);
+        $request->session()->put('user', $user->email);
 
         //Set cookie with user email
         $cookie = cookie('user_session', $user->email, 60);
         return response()->json(['message' => 'Login Successful'], 200)
             ->cookie($cookie);
     }
-
     public function register(Request $request)
     {
         //validate the incoming request
@@ -51,15 +47,12 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-
         $user->save();
-
         return response()->json([
             'message' => 'User created successfully',
             'user' => $user
         ], 201);
     }
-
     public function logout(Request $request)
     {
         Auth::logout();
@@ -70,7 +63,6 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out'], 200)
             ->cookie($cookie);
     }
-
     public function checkSession(Request $request)
     {
         $cookie = $request->cookie('user_session');
