@@ -35,7 +35,6 @@ class AuthController extends Controller
         return response()->json(['message' => 'Login Successful'], 200)
             ->cookie($cookie);
     }
-
     public function register(Request $request)
     {
         //validate the incoming request
@@ -59,7 +58,6 @@ class AuthController extends Controller
             'user' => $user
         ], 201);
     }
-
     public function logout(Request $request)
     {
         Auth::logout();
