@@ -31,22 +31,28 @@ Route::get('/tasks/{task}', function (Task $task) {
 
 //Adding a new task
 Route::post('/tasks', function (TaskRequest $request) {
-    $task = Task::create($request->validated());
+    $data = $request->validated();
 
-    return redirect()->route('task.show', ['task' => $task->id])
+    $task = new Task;
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+    $task->save();
+    Task::create();
+
+    return redirect()->route('task.show', ['id' => $task->id])
         ->with('success', 'Task created succesfully!');
 })->name('task.store');
 
 //editing a task
 Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
-    $task->update($request->validated());
-    return redirect()->route('task.show', ['task' => $task->id])
+    $data = $request->validated();
+
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+    $task->save();
+
+    return redirect()->route('task.show', ['id' => $task->id])
         ->with('success', 'Task updated succesfully!');
 })->name('task.update');
-
-//deleting a task
-Route::delete('/tasks/{task}', function (Task $task) {
-    $task->delete();
-    return redirect()->route('task.index')
-        ->with('success', 'Task deleted succesfully!');
-})->name('task.destroy');

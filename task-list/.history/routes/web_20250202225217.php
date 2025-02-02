@@ -47,6 +47,5 @@ Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
 //deleting a task
 Route::delete('/tasks/{task}', function (Task $task) {
     $task->delete();
-    return redirect()->route('task.index')
-        ->with('success', 'Task deleted succesfully!');
-})->name('task.destroy');
+    return redirect()->
+});
