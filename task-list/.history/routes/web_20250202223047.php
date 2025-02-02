@@ -3,7 +3,6 @@
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Requests\TaskRequest;
 
 Route::get('/', function () {
     return redirect()->route('task.index');
@@ -30,8 +29,12 @@ Route::get('/tasks/{task}', function (Task $task) {
 })->name('task.show');
 
 //Adding a new task
-Route::post('/tasks', function (TaskRequest $request) {
-    $data = $request->validated();
+Route::post('/tasks', function (Request $request) {
+    $data = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required'
+    ]);
 
     $task = new Task;
     $task->title = $data['title'];
@@ -44,8 +47,12 @@ Route::post('/tasks', function (TaskRequest $request) {
 })->name('task.store');
 
 //editing a task
-Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
-    $data = $request->validated();
+Route::put('/tasks/{task}', function (Task $task, Request $request) {
+    $data = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required'
+    ]);
 
     $task->title = $data['title'];
     $task->description = $data['description'];
