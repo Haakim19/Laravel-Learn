@@ -24,7 +24,7 @@
         @enderror
         <div>
             <label for="description">Description</label>
-            <textarea name="description" id="description" rows="5">{{ old('description') }}</textarea>
+            <textarea name="description" id="description" rows="5"></textarea>
         </div>
         @error('description')
             <p class="error-message">{{ $message }}</p>
@@ -32,7 +32,7 @@
 
         <div>
             <label for="long_description">Long_Description</label>
-            <textarea name="long_description" id="long_description" rows="5">{{ old('long_description')}}</textarea>
+            <textarea name="long_description" id="long_description" rows="5"></textarea>
         </div>
         @error('long_description')
             <p class="error-message">{{ $message }}</p>

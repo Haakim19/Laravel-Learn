@@ -63,3 +63,19 @@ Route::put('/tasks/{id}', function ($id, Request $request) {
     return redirect()->route('task.show', ['id' => $task->id])
         ->with('success', 'Task updated succesfully!');
 })->name('task.update');
+
+// Route::get('/hello', function () {
+//     return 'Hello';
+// })->name('hello');
+
+// Route::get('/hallo', function () {
+//     return redirect()->route('hello');
+// });
+
+// Route::get('/greet/{name}', function ($name) {
+//     return 'Hello ' . $name . '!';
+// });
+
+// Route::fallback(function () {
+//     return 'still got somewhere';
+// });

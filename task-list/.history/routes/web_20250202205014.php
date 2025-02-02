@@ -9,7 +9,7 @@ Route::get('/', function () {
 });
 Route::get('/tasks', function () {
     return view('index', [
-        'tasks' => Task::orderBy('created_at', 'desc')->get()
+        'tasks' => Task::latest()->where('completed', true)->get()
     ]);
 })->name('task.index');
 
@@ -61,5 +61,21 @@ Route::put('/tasks/{id}', function ($id, Request $request) {
     $task->save();
 
     return redirect()->route('task.show', ['id' => $task->id])
-        ->with('success', 'Task updated succesfully!');
-})->name('task.update');
+        ->with('success', 'Task created succesfully!');
+})->name('task.store');
+
+// Route::get('/hello', function () {
+//     return 'Hello';
+// })->name('hello');
+
+// Route::get('/hallo', function () {
+//     return redirect()->route('hello');
+// });
+
+// Route::get('/greet/{name}', function ($name) {
+//     return 'Hello ' . $name . '!';
+// });
+
+// Route::fallback(function () {
+//     return 'still got somewhere';
+// });
