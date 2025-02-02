@@ -8,9 +8,7 @@ Route::get('/', function () {
     return redirect()->route('task.index');
 });
 Route::get('/tasks', function () {
-    return view('index', [
-        'tasks' => Task::orderBy('created_at', 'desc')->get()
-    ]);
+    return view('index');
 })->name('task.index');
 
 Route::view('tasks/create', 'create')
@@ -63,3 +61,19 @@ Route::put('/tasks/{id}', function ($id, Request $request) {
     return redirect()->route('task.show', ['id' => $task->id])
         ->with('success', 'Task updated succesfully!');
 })->name('task.update');
+
+// Route::get('/hello', function () {
+//     return 'Hello';
+// })->name('hello');
+
+// Route::get('/hallo', function () {
+//     return redirect()->route('hello');
+// });
+
+// Route::get('/greet/{name}', function ($name) {
+//     return 'Hello ' . $name . '!';
+// });
+
+// Route::fallback(function () {
+//     return 'still got somewhere';
+// });
