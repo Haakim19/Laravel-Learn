@@ -12,8 +12,9 @@
         @endforelse
     {{-- @endif --}}
     @if ($tasks->count())
-        <nav>
+        <div>
             {{ $tasks->links() }}
-        </nav>
+        </div>
+
     @endif
 @endsection
