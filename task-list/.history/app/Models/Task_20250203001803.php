@@ -15,7 +15,7 @@ class Task extends Model
     ];
     public function complete()
     {
-        $this->completed = !$this->completed;
+        $this->completed = true;
         $this->save();
     }
 }

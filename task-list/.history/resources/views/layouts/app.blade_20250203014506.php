@@ -19,9 +19,6 @@
         textarea{
             @apply shadow-sm appearance-none border w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none
         }
-        .error-message{
-            @apply text-red-500 text-sm
-        }
     </style>
     {{-- blade-formatter-enable --}}
     @yield('styles')
