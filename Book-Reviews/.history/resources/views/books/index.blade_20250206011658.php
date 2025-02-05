@@ -5,9 +5,9 @@
 
     <form action="{{ route('books.index') }}" method="GET" class="mb-4 flex space-x-2">
         <input type="text" name="title" placeholder="Search by title"
-        value="{{ request('title') }}" class="input h-10">
-        <button type="submit" class = "btn h-10">Search</button>
-        <a href="{{ route('books.index') }}" class="btn h-10">Clear</a>
+        value="{{ request('title') }}" class="input">
+        <button type="submit" class = "btn">Search</button>
+        <a href="{{ route('books.index') }}" class="btn">Clear</a>
     </form>
     <ul>
         @forelse ($books as $book)
