@@ -14,12 +14,12 @@ class Book extends Model
     {
         return $this->hasMany(Reviews::class);
     }
-    //fillter the books with the title
+
     public function scopeTitle(Builder $query, string $title): Builder|QueryBuilder
     {
         return $query->where('title', 'LIKE', '%' . $title . '%');
     }
-    //the books with the highest number of reviews
+
     public function scopePopular(Builder $query, $from = null, $to = null): Builder|QueryBuilder
     {
         return $query->withCount([
@@ -28,7 +28,7 @@ class Book extends Model
             ->orderBy('reviews_count', 'desc');
         // ->limit(5);
     }
-    //the books with the highest rating
+
     public function scopeHighestRated(Builder $query, $from = null, $to = null): Builder|QueryBuilder
     {
         return $query->withAvg([
@@ -36,17 +36,9 @@ class Book extends Model
         ], 'rating')
             ->orderBy('reviews_avg_rating', 'desc');
     }
-    //the books with minimum reviews
-    public function scopeMinReviews(Builder $query, int $minReviews): Builder|QueryBuilder
-    {
-        return $query->having('reviews_count', '>=', $minReviews);
-    }
-    //the books with maximum reviews
-    public function scopeMaxReviews(Builder $query, int $maxReviews): Builder|QueryBuilder
-    {
-        return $query->having('reviews_count', '<=', $maxReviews);
-    }
-    //fillter the books with the date range
+
+    public function scopeMin
+
     private function dateRangeFillter(Builder $query, $from = null, $to = null)
     {
         if ($from && !$to) {
