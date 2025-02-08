@@ -21,10 +21,9 @@ class BookController extends Controller
         );
         $books = match ($filter) {
             'populer_last_month' => $books->popularLastMonth(),
-            'populer_last_6months' => $books->popularLast6Months(),
-            'highest_rated_last_month' => $books->highestRatedLastMonth(),
-            'highest_rated_last_6months' => $books->highestRatedLast6Months(),
-            default => $books->latest()
+                'populer_last_6months' => 'Most Popular Last 6 Months',
+                'highest_rated_last_month' => 'Highest Rated Last Month',
+                'highest_rated_last_6months'
         };
 
         $books = $books->get();
@@ -50,9 +49,9 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(string $id)
     {
-        return view('books.show', ['book' => $book]);
+        //
     }
 
     /**
