@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,8 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('reviews', function (Request $request) {
-            return Limit::perHour(3)->by($request->user()?->id ?: $request->ip());
-        });
+        RateLimiter::for('reviews', function (Request $request) {});
     }
 }
