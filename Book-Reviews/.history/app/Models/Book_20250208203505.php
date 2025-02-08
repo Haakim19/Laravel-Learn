@@ -108,15 +108,4 @@ class Book extends Model
             ->minReviews(5);
     }
     //---------------------------------------------------//
-
-    //--Cache update and delete----//
-    protected static function booted()
-    {
-        static::updated(
-            fn(Book $book) => cache()->forget('book:' . $book->id)
-        );
-        static::deleted(
-            fn(Book $book) => cache()->forget('book:' . $book->id)
-        );
-    }
 }
