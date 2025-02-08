@@ -112,11 +112,7 @@ class Book extends Model
     //--Cache update and delete----//
     protected static function booted()
     {
-        static::updated(
-            fn(Book $book) => cache()->forget('book:' . $book->id)
-        );
-        static::deleted(
-            fn(Book $book) => cache()->forget('book:' . $book->id)
-        );
+        static::updated(fn(Book $book) => cache()->forget('book:' . $book->id));
+        static::deleted(fn(Book $book) => cache()->forget('book:' . $book->id));
     }
 }

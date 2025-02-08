@@ -32,7 +32,7 @@ class BookController extends Controller
         $books =
             cache()->remember(
                 $cacheKey,
-                3600,
+                60,
                 fn() =>
                 $books->get()
             );
