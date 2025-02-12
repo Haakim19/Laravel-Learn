@@ -12,12 +12,9 @@ use Illuminate\Http\Request;
 class AttendeeController extends Controller
 {
     use CanLoadRelationships;
-    private array $relations = ['user'];
     public function index(Event $event)
     {
-        $attendees = $this->loadRelationships(
-            $event->attendees()->latest()
-        );
+        $attendees = $this->loadRelationships()
         return AttendeeResource::collection(
             $attendees->paginate()
         );
@@ -28,11 +25,9 @@ class AttendeeController extends Controller
      */
     public function store(Request $request, Event $event)
     {
-        $attendee = $this->loadRelationships(
-            $event->attendees()->create([
-                'user_id' => 1
-            ])
-        );
+        $attendee = $event->attendees()->create([
+            'user_id' => 1
+        ]);
         return new AttendeeResource($attendee);
     }
 
@@ -41,9 +36,7 @@ class AttendeeController extends Controller
      */
     public function show(Event $event, Attendee $attendee)
     {
-        return new AttendeeResource(
-            $this->loadRelationships($attendee)
-        );
+        return new AttendeeResource($attendee);
     }
 
     /**
