@@ -7,6 +7,7 @@ use App\Http\Resources\EventResource;
 use App\Http\Traits\CanLoadRelationships;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Middleware;
 
 class EventController extends Controller
 {
@@ -34,7 +35,7 @@ class EventController extends Controller
 
             ]),
 
-            'user_id' => 1
+            'user_id' => $request->user()->id
         ]);
         return new EventResource($this->loadRelationships($event));
     }
