@@ -14,9 +14,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return EventResource::collection(
-            Event::with('user')->paginate()
-        );
+        return EventResource::collection(Event::all());
     }
 
     /**
@@ -41,9 +39,8 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(\App\Models\Event $event)
     {
-        $event->load('user', 'attendees');
         return new EventResource($event);
     }
 
@@ -60,7 +57,6 @@ class EventController extends Controller
                 'end_time' => 'sometimes|date|after:start_time',
             ])
         );
-        return new EventResource($event);
     }
 
     /**
