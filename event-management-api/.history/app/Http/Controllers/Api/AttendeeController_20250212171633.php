@@ -28,11 +28,9 @@ class AttendeeController extends Controller
      */
     public function store(Request $request, Event $event)
     {
-        $attendee = $this->loadRelationships(
-            $event->attendees()->create([
-                'user_id' => 1
-            ])
-        );
+        $attendee = $event->attendees()->create([
+            'user_id' => 1
+        ]);
         return new AttendeeResource($attendee);
     }
 
@@ -41,9 +39,7 @@ class AttendeeController extends Controller
      */
     public function show(Event $event, Attendee $attendee)
     {
-        return new AttendeeResource(
-            $this->loadRelationships($attendee)
-        );
+        return new AttendeeResource($attendee);
     }
 
     /**

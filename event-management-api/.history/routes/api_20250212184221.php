@@ -10,8 +10,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/login', [AuthController::class, 'login']);
-
+Route::post('/login', [AuthController::class])
 Route::apiResource('events', EventController::class);
 Route::apiResource('events.attendees', AttendeeController::class)
     ->scoped()->except('update');

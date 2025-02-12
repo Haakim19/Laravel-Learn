@@ -41,9 +41,7 @@ class AttendeeController extends Controller
      */
     public function show(Event $event, Attendee $attendee)
     {
-        return new AttendeeResource(
-            $this->loadRelationships($attendee)
-        );
+        return new AttendeeResource($attendee);
     }
 
     /**
