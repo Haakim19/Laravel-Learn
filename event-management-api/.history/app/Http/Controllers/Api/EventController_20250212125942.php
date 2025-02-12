@@ -14,9 +14,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        return EventResource::collection(
-            Event::with('user')->paginate()
-        );
+        $event->load('user');
+        return EventResource::collection(Event::with('user')->get());
     }
 
     /**
@@ -41,9 +40,8 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(\App\Models\Event $event)
     {
-        $event->load('user', 'attendees');
         return new EventResource($event);
     }
 
