@@ -8,6 +8,7 @@ use App\Http\Traits\CanLoadRelationships;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Middleware;
+use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
@@ -47,7 +48,8 @@ class EventController extends Controller
 
     public function update(Request $request, Event $event)
     {
-        return $event->update(
+        Gate::authorize('update-event', $event);
+        $event->update(
             $request->validate([
                 'name' => 'sometimes|string|max:255',
                 'description' => 'nullable|string',
