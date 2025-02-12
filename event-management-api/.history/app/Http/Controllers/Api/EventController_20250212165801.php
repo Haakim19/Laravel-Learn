@@ -11,10 +11,11 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     use CanLoadRelationships;
-    private array $relations = ['user', 'attendees', 'attendees.user'];
+    private readonly array 
 
     public function index()
     {
+        $relations = ['user', 'attendees', 'attendees.user'];
         $query = $this->loadRelationships(Event::query());
 
 
@@ -36,14 +37,21 @@ class EventController extends Controller
 
             'user_id' => 1
         ]);
-        return new EventResource($this->loadRelationships($event));
+        return new EventResource($event);
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(Event $event)
     {
-        return new EventResource($this->loadRelationships($event));
+        $event->load('user', 'attendees');
+        return new EventResource($event);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Event $event)
     {
         return $event->update(
@@ -54,9 +62,12 @@ class EventController extends Controller
                 'end_time' => 'sometimes|date|after:start_time',
             ])
         );
-        return new EventResource($this->loadRelationships($event));
+        return new EventResource($event);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Event $event)
     {
         $event->delete();

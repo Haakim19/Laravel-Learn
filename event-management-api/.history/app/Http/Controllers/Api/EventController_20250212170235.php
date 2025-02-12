@@ -39,11 +39,17 @@ class EventController extends Controller
         return new EventResource($this->loadRelationships($event));
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(Event $event)
     {
         return new EventResource($this->loadRelationships($event));
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Event $event)
     {
         return $event->update(
@@ -57,6 +63,9 @@ class EventController extends Controller
         return new EventResource($this->loadRelationships($event));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Event $event)
     {
         $event->delete();
