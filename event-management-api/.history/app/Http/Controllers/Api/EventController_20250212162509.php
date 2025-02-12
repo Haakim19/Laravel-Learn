@@ -4,25 +4,42 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
-use App\Http\Traits\CanLoadRelationships;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    use CanLoadRelationships;
-    private array $relations = ['user', 'attendees', 'attendees.user'];
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $query = $this->loadRelationships(Event::query());
+        $query = Event::query();
+        $relations = ['user', 'attendees', 'attendees.user'];
 
-
+        foreach ($relations as $relation) {
+            $query->when(
+                $this->shouldIncludeRelation($relation),
+                fn($q) => $q->with($relation)
+            );
+        }
         return EventResource::collection(
-            $query->latest()->paginate()
+            Event::with('user')->paginate()
         );
     }
+    protected function shouldIncludeRelation(string $relation): bool
+    {
+        $include = request()->query('include');
+        if (!$include) {
+            return false;
+        }
+        $relations = array_map('trim', explode(',', $include));
+        return in_array($relation, $relations);
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $event = Event::create([
@@ -36,14 +53,21 @@ class EventController extends Controller
 
             'user_id' => 1
         ]);
-        return new EventResource($this->loadRelationships($event));
+        return new EventResource($event);
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(Event $event)
     {
-        return new EventResource($this->loadRelationships($event));
+        $event->load('user', 'attendees');
+        return new EventResource($event);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Event $event)
     {
         return $event->update(
@@ -54,9 +78,12 @@ class EventController extends Controller
                 'end_time' => 'sometimes|date|after:start_time',
             ])
         );
-        return new EventResource($this->loadRelationships($event));
+        return new EventResource($event);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Event $event)
     {
         $event->delete();
